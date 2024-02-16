@@ -1,8 +1,37 @@
 class Player {
     constructor(){
         this.position = createVector(width/2, height/2);
+        this.angle = 0;
     }
     draw(){
-        circle(this.position.x, this.position.y, 20, 20);
+        push();
+        translate(this.position.x, this.position.y);
+        rotate(this.angle);
+        rect(0, 0, 20, 20);
+        pop();
+    }
+
+    update(){
+        let xSpeed = 0;
+        let ySpeed = 0;
+
+        if (keyIsDown(90)) {
+            ySpeed = -2;
+        }
+
+        if (keyIsDown(83)) {
+            ySpeed = 2;
+        }
+
+        if (keyIsDown(68)) {
+            xSpeed = 2;
+        }
+
+        if (keyIsDown(81)) {
+            xSpeed = -2;
+        }
+
+        this.position.add(xSpeed, ySpeed);
+        this.angle = atan2(mouseY - this.position.y, mouseX - this.position.x);
     }
 }
