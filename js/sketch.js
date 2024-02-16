@@ -1,7 +1,11 @@
-function setup() {
-  createCanvas(400, 400);
+let player;
+function setup () {
+  createCanvas(700, 700);
+  player = new Player();
 }
 
-function draw() {
-  background(220);
-}
+function draw () {
+  background(100, 100, 100)
+  rectMode(CENTER)
+  player.draw();
+}  
