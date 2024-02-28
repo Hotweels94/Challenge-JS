@@ -13,7 +13,7 @@ class Bot {
     push();
     translate(this.position.x, this.position.y);
     rotate(this.angle);
-    rect(30, 20, 55, 55, 20);
+    rect(50, 50, 30, 30, 20);
     pop();
 }
 
