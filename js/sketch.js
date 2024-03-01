@@ -1,5 +1,5 @@
 let player;
-let bot = [];
+let bot = [3];
 
 function setup() {
   createCanvas(700, 700);

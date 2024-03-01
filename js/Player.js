@@ -1,11 +1,11 @@
 class Player {
     constructor(){
-        this.position = createVector(width/2, height/2);
+        this.pos = createVector(width/2, height/2);
         this.angle = 0;
     }
     draw(){
         push();
-        translate(this.position.x, this.position.y);
+        translate(this.pos.x, this.pos.y);
         rotate(this.angle);
         rect(0, 0, 20, 20);
         pop();
@@ -31,7 +31,7 @@ class Player {
             xSpeed = -2;
         }
 
-        this.position.add(xSpeed, ySpeed);
-        this.angle = atan2(mouseY - this.position.y, mouseX - this.position.x);
+        this.pos.add(xSpeed, ySpeed);
+        this.angle = atan2(mouseY - this.pos.y, mouseX - this.pos.x);
     }
 }

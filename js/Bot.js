@@ -5,13 +5,13 @@ class Bot {
   constructor(speed) {
     this.speed = speed;
     let y;
-    // if (random(1) < 0.5) {
-    //   // from the top
-    //   y = random(-300, 0);            
-    // } else {
-    //   // from the bottom
-    //   y = random(height, height + 300);
-    // }
+    if (random(1) < 0.5) {
+      // from the top
+      y = random(-300, 0);            
+    } else {
+      // from the bottom
+      y = random(height, height + 300);
+    }
 
     let x = random(-300, width + 300);
     this.pos = createVector(x, y);
@@ -20,7 +20,7 @@ class Bot {
   draw() {
     push();
     fill(100, 255, 100);
-    rect(30,30,30, 30, 20);
+    rect(this.pos.x,this.pos.y, 30, 20);
     pop();
   }
 
