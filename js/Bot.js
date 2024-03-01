@@ -7,6 +7,7 @@ class Bot {
     let y = random(width);
     let x = random(height);
     this.position = createVector(x, y);
+    this.bullets = [];
   }
 
   draw() {
@@ -17,11 +18,20 @@ class Bot {
     rotate(angle);
     rect(0, 0, 30, 20);
     pop();
+
+    for (let bullet of this.bullets) {
+      bullet.update();
+      bullet.draw();
+    }
   }
 
   update() {
     let difference = p5.Vector.sub(player.position, this.position);
     difference.limit(this.speed);
     this.position.add(difference);
+  }
+
+  shoot() {
+    this.bullets.push(new Bullet(this.position.x, this.position.y, this.angle));
   }
 }

@@ -20,6 +20,12 @@ function draw() {
   if (frameCount % 400 == 0) {
     bots.push(new Bot(1));
   }
+
+  if (frameCount % 400 == 0) {
+    console.log("1");
+    bots.shoot();
+    console.log("2");
+  }
 }
 
 
