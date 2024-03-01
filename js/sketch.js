@@ -1,5 +1,5 @@
 let player;
-let bot = [3];
+let bots = [];
 
 function setup() {
   createCanvas(700, 700);
@@ -11,18 +11,17 @@ function draw() {
   rectMode(CENTER);
   player.draw();
   player.update();
+  
+  for (let bot of bots) {
+    bot.draw();
+    bot.update();
+  }
+  
+  if (frameCount % 200 == 0) {
+    bots.push(new Bot(2));
+  }
 }
 
-for (let bot of bot) {
-  // add this
-  bot.draw();
-  bot.update();
-}
-
-if (frameCount % 200 == 0) {
-  // add this
-  bot.push(new Bot(2));
-}
 
 // function tracking() {
 //   bot.direction = bot.angleTo(player);
