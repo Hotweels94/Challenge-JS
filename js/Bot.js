@@ -2,31 +2,31 @@
 
 // addImage(bot,"./img/bot.png",{name:"Bot"});
 class Bot {
-  constructor() {
-    this.position = createVector(width / 2, height / 2);
-    this.angle = 0;
+  constructor(speed) {
+    this.speed = speed;
+    let y;
+    // if (random(1) < 0.5) {
+    //   // from the top
+    //   y = random(-300, 0);            
+    // } else {
+    //   // from the bottom
+    //   y = random(height, height + 300);
+    // }
+
+    let x = random(-300, width + 300);
+    this.pos = createVector(x, y);
   }
 
-  player = new Player();
-
-  draw(){
+  draw() {
     push();
-    translate(this.position.x, this.position.y);
-    rotate(this.angle);
-    rect(50, 50, 30, 30, 20);
+    fill(100, 255, 100);
+    rect(30,30,30, 30, 20);
     pop();
-}
+  }
 
-  tracking() { 
-    player = new  Player();
-
-    let distance = dist(player.x, player.y, bot.x, bot.y);
-  
-    if (distance > 40) {
-      bot.direction = bot.angleTo(player);
-      bot.speed = 1;
-    } else if (distance < 30) {
-      bot.speed = 0;
-    }
+  update() {
+    let difference = p5.Vector.sub(player.pos, this.pos);
+    difference.limit(this.speed);
+    this.pos.add(difference);
   }
 }
