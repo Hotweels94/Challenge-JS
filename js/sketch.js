@@ -21,10 +21,10 @@ function draw() {
     bots.push(new Bot(1));
   }
 
-  if (frameCount % 400 == 0) {
-    console.log("1");
-    bots.shoot();
-    console.log("2");
+  for (let i = 0; i < bots.length; i++) {
+    if (frameCount % 200 == 0 ) {
+      bots[i].shoot();
+    }
   }
 }
 

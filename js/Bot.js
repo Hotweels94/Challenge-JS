@@ -20,8 +20,8 @@ class Bot {
     pop();
 
     for (let bullet of this.bullets) {
-      bullet.update();
       bullet.draw();
+      bullet.update();
     }
   }
 
@@ -32,6 +32,7 @@ class Bot {
   }
 
   shoot() {
-    this.bullets.push(new Bullet(this.position.x, this.position.y, this.angle));
+    let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
+    this.bullets.push(new Bullet(this.position.x, this.position.y, angle));
   }
 }

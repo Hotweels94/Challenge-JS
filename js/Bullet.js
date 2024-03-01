@@ -7,14 +7,14 @@ class Bullet {
     }
 
     draw () {
-        push ();
+        push();
         fill(0);
         circle(this.x, this.y, 5);
         pop();
     }
 
     update () {
-        this.x = this.speed * cos(this.angle);
-        this.y = this.speed * sin(this.angle);
+        this.x += this.speed * cos(this.angle);
+        this.y += this.speed * sin(this.angle);
     }
 }
