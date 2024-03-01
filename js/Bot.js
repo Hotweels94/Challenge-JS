@@ -35,4 +35,14 @@ class Bot {
     let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
     this.bullets.push(new Bullet(this.position.x, this.position.y, angle));
   }
+
+  hasHit(player) {
+    for (let i = 0; i < this.bullets.length; i++) {
+      if (dist(this.bullets[i].x, this.bullets[i].y, player.position.x, player.position.y < 15)) {
+        this.bullets.splice(i, 1);
+        return true;
+      }
+    }
+    return false;  
+  }
 }

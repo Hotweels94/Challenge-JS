@@ -2,6 +2,7 @@ class Player {
     constructor(){
         this.position = createVector(width/2, height/2);
         this.angle = 0;
+        this.life = 3;
     }
     draw(){
         push();

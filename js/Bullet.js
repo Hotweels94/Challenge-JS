@@ -3,7 +3,7 @@ class Bullet {
         this.x = x;
         this.y = y;
         this.angle = angle;
-        this.speed = 13;
+        this.speed = 10;
     }
 
     draw () {
