@@ -18,7 +18,7 @@ function draw() {
   }
   
   if (frameCount % 200 == 0) {
-    bots.push(new Bot(2));
+    bots.push(new Bot(1));
   }
 }
 

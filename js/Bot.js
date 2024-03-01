@@ -4,14 +4,8 @@
 class Bot {
   constructor(speed) {
     this.speed = speed;
-    let y;
-    if (random(1) < 0.5) {
-      y = random(-300, 0);            
-    } else {
-      y = random(height, height + 300);
-    }
-
-    let x = random(-300, width + 300);
+    let y = random(width);
+    let x = random(height);
     this.position = createVector(x, y);
   }
 
