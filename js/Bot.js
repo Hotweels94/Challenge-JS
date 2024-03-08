@@ -37,12 +37,14 @@ class Bot {
   }
 
   hasHit(player) {
+    let playerSize = 15;
     for (let i = 0; i < this.bullets.length; i++) {
-      if (dist(this.bullets[i].x, this.bullets[i].y, player.position.x, player.position.y < 15)) {
-        this.bullets.splice(i, 1);
+      let bullet = this.bullets[i];
+      let d = dist(bullet.x, bullet.y, player.position.x, player.position.y);
+      if (d < playerSize / 2) {
         return true;
       }
     }
-    return false;  
+    return false;
   }
 }

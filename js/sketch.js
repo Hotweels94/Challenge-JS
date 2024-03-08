@@ -12,11 +12,16 @@ function draw() {
   player.draw();
   player.update();
   
-  for (let bot of bots) {
-    bot.draw();
-    bot.update();
+  for (let i = bots.length - 1; i >= 0; i--) {
+    bots[i].draw();
+    bots[i].update();
+
+    if (bots[i].hasHit(player) == true) {
+      player = null;
+      alert("You loose !") 
+    }
   }
-  
+
   if (frameCount % 400 == 0) {
     bots.push(new Bot(1));
   }
@@ -27,9 +32,3 @@ function draw() {
     }
   }
 }
-
-
-// function tracking() {
-//   bot.direction = bot.angleTo(player);
-//   bot.speed = 1;
-// }
