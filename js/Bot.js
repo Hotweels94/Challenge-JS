@@ -47,4 +47,16 @@ class Bot {
     }
     return false;
   }
+
+  hasHitBots(bots) {
+    let botsSize = 20;
+      for (let i = 0; i < this.bullets.length; i++) {
+        let bullet = this.bullets[i];
+        let d = dist(this.position.x, this.position.y, bullet.x, bullet.y );
+        if (d < botsSize / 2) {
+          return true;
+        }
+      }
+    return false;
+  }
 }

@@ -2,7 +2,7 @@ let player;
 let bots = [];
 
 function setup() {
-  createCanvas(700, 700);
+  createCanvas(1650, 800);
   player = new Player();
 }
 
@@ -11,16 +11,26 @@ function draw() {
   rectMode(CENTER);
   player.draw();
   player.update();
+  console.log(player.life); 
   
   for (let i = bots.length - 1; i >= 0; i--) {
     bots[i].draw();
     bots[i].update();
 
     if (bots[i].hasHit(player) == true) {
-      player = null;
-      alert("You loose !") 
+      player.life -= 1;
+      if (player.life <= 0) {
+        console.log(player.life, "hit");
+        player = null;
+        alert("You are dead.");
+      }
     }
-  }
+
+    //if (bots[i].hasHitBots(bots) == true) {
+    // bots[i] = null;
+     //console.log("An enemy is dead.");
+   //}
+  }  
 
   if (frameCount % 400 == 0) {
     bots.push(new Bot(1));

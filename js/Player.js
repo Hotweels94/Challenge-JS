@@ -13,8 +13,8 @@ class Player {
     }
 
     update(){
-        let xSpeed = 0;
-        let ySpeed = 0;
+        let xSpeed = 0
+        let ySpeed = 0
 
         if (keyIsDown(90)) {
             ySpeed = -2;
