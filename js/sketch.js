@@ -2,7 +2,7 @@ let player;
 let bots = [];
 
 function setup() {
-  createCanvas(1500, 700);
+  createCanvas(windowWidth, windowHeight);
   player = new Player();
 }
 
