@@ -27,8 +27,8 @@ function draw() {
     }
 
     if (bots[i].hasHitBots(bots) == true) {
-    bots[i] = null;
-    console.log("An enemy is dead.");
+      bot = null;
+      console.log("An enemy is dead.");
    }
   }  
 

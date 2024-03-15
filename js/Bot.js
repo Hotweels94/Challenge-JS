@@ -1,6 +1,3 @@
-// import { addImage } from "../libraries/quicksettings";
-
-// addImage(bot,"./img/bot.png",{name:"Bot"});
 class Bot {
   constructor(speed) {
     this.speed = speed;
@@ -52,14 +49,19 @@ class Bot {
   }
 
   hasHitBots(bots) {
-    let botsSize = 30;
-      for (let i = 0; i < this.bullets.length; i++) {
-        let bullet = this.bullets[i];
-        let d = dist(this.position.x, this.position.y, bullet.x, bullet.y );
+    let botsSize = 20;
+    for (let i = 0; i < this.bullets.length; i++) {
+      let bullet = this.bullets[i];
+      for (let j = 0; j < bots.length; j++) {
+        let bot = bots[j];
+        let d = dist(bullet.x, bullet.y, bot.position.x, bot.position.y);
         if (d < botsSize / 2) {
+          this.bullets.splice(i, 1); // Remove the bullet
+          bots.splice(j, 1); // Remove the bot
           return true;
         }
       }
+    }
     return false;
   }
 }
