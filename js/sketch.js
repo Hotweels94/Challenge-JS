@@ -1,9 +1,9 @@
 let player;
 let bots = [];
-let mapp
+let maps;
 
 function setup() {
-  mapp = createCanvas(windowWidth, windowHeight);
+  maps = createCanvas(windowWidth, windowHeight);
   player = new Player();
 }
 

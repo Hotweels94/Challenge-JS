@@ -3,8 +3,8 @@ let botImage;
 class Bot {
   constructor(speed) {
     this.speed = speed;
-    let y = random(mapp.height);
-    let x = random(mapp.width);
+    let y = random(maps.height);
+    let x = random(maps.width);
     this.position = createVector(x, y);
     this.bullets = [];
     this.radius = 20;
