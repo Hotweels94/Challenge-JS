@@ -55,7 +55,7 @@ class Bot {
       for (let j = 0; j < bots.length; j++) {
         let bot = bots[j];
         let d = dist(bullet.x, bullet.y, bot.position.x, bot.position.y);
-        if (d < botsSize / 2) {
+        if (d < botsSize) {
           this.bullets.splice(i, 1); // Remove the bullet
           bots.splice(j, 1); // Remove the bot
           return true;
