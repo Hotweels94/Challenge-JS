@@ -2,7 +2,7 @@ let player;
 let bots = [];
 
 function setup() {
-  createCanvas(1650, 800);
+  createCanvas(1500, 700);
   player = new Player();
 }
 
@@ -26,10 +26,10 @@ function draw() {
       }
     }
 
-    //if (bots[i].hasHitBots(bots) == true) {
-    // bots[i] = null;
-     //console.log("An enemy is dead.");
-   //}
+    if (bots[i].hasHitBots(bots) == true) {
+    bots[i] = null;
+    console.log("An enemy is dead.");
+   }
   }  
 
   if (frameCount % 400 == 0) {

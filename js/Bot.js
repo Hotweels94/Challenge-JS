@@ -8,6 +8,7 @@ class Bot {
     let x = random(height);
     this.position = createVector(x, y);
     this.bullets = [];
+    this.radius = 20;
   }
 
   draw() {
@@ -16,7 +17,7 @@ class Bot {
     let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
     translate(this.position.x, this.position.y);
     rotate(angle);
-    rect(0, 0, 30, 20);
+    rect(0, -this.radius/2, 30, 20);
     pop();
 
     for (let bullet of this.bullets) {
@@ -33,7 +34,9 @@ class Bot {
 
   shoot() {
     let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
-    this.bullets.push(new Bullet(this.position.x, this.position.y, angle));
+    let xOffset = cos(angle) * this.radius;
+    let yOffset = sin(angle) * this.radius;
+    this.bullets.push(new Bullet(this.position.x + xOffset, this.position.y + yOffset, angle));
   }
 
   hasHit(player) {
@@ -49,7 +52,7 @@ class Bot {
   }
 
   hasHitBots(bots) {
-    let botsSize = 20;
+    let botsSize = 30;
       for (let i = 0; i < this.bullets.length; i++) {
         let bullet = this.bullets[i];
         let d = dist(this.position.x, this.position.y, bullet.x, bullet.y );
