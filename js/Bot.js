@@ -1,3 +1,5 @@
+let botImage;
+
 class Bot {
   constructor(speed) {
     this.speed = speed;
@@ -10,11 +12,10 @@ class Bot {
 
   draw() {
     push();
-    fill(100, 255, 100);
     let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
     translate(this.position.x, this.position.y);
     rotate(angle);
-    rect(0, -this.radius/2, 30, 20);
+    image(botImage, 0, 0,50,50);
     pop();
 
     for (let bullet of this.bullets) {
@@ -56,12 +57,19 @@ class Bot {
         let bot = bots[j];
         let d = dist(bullet.x, bullet.y, bot.position.x, bot.position.y);
         if (d < botsSize) {
-          this.bullets.splice(i, 1); // Remove the bullet
-          bots.splice(j, 1); // Remove the bot
+          this.bullets.splice(i, 1);
+          bots.splice(j, 1);
           return true;
         }
       }
     }
     return false;
   }
+}
+
+
+
+
+function preload() {
+  botImage = loadImage('../img/bot2.png');
 }
