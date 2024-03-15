@@ -1,6 +1,7 @@
 let player;
 let bots = [];
 let maps;
+let font;
 
 function setup() {
   maps = createCanvas(windowWidth, windowHeight);
@@ -12,7 +13,10 @@ function draw() {
   rectMode(CENTER);
   player.draw();
   player.update();
-  console.log(player.life);
+
+  //textFont(font, 30);
+  textSize(20);
+  text("Player life : " + player.life, 35, 40);
 
   for (let i = bots.length - 1; i >= 0; i--) {
     bots[i].draw();
@@ -45,4 +49,8 @@ function draw() {
       bots[i].shoot();
     }
   }
+}
+
+function preload() {
+  font = loadFont("../font/Minecraft.ttf");
 }

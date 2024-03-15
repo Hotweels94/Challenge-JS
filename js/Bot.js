@@ -15,7 +15,7 @@ class Bot {
     let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
     translate(this.position.x, this.position.y);
     rotate(angle);
-    image(botImage, 0, 0,50,50);
+    image(botImage, 0, 0,45,45);
     pop();
 
     for (let bullet of this.bullets) {
@@ -38,11 +38,11 @@ class Bot {
   }
 
   hasHit(player) {
-    let playerSize = 15;
+    let playerHitBox = 15;
     for (let i = 0; i < this.bullets.length; i++) {
       let bullet = this.bullets[i];
       let d = dist(bullet.x, bullet.y, player.position.x, player.position.y);
-      if (d < playerSize / 2) {
+      if (d < playerHitBox / 2) {
         return true;
       }
     }
@@ -50,13 +50,13 @@ class Bot {
   }
 
   hasHitBots(bots) {
-    let botsSize = 20;
+    let botsHitBox = 25;
     for (let i = 0; i < this.bullets.length; i++) {
       let bullet = this.bullets[i];
       for (let j = 0; j < bots.length; j++) {
         let bot = bots[j];
         let d = dist(bullet.x, bullet.y, bot.position.x, bot.position.y);
-        if (d < botsSize) {
+        if (d < botsHitBox) {
           this.bullets.splice(i, 1);
           bots.splice(j, 1);
           return true;
