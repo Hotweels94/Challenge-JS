@@ -1,8 +1,8 @@
 class Bot {
   constructor(speed) {
     this.speed = speed;
-    let y = random(width);
-    let x = random(height);
+    let y = random(mapp.height);
+    let x = random(mapp.width);
     this.position = createVector(x, y);
     this.bullets = [];
     this.radius = 20;
