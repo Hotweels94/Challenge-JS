@@ -12,8 +12,8 @@ function draw() {
   rectMode(CENTER);
   player.draw();
   player.update();
-  console.log(player.life); 
-  
+  console.log(player.life);
+
   for (let i = bots.length - 1; i >= 0; i--) {
     bots[i].draw();
     bots[i].update();
@@ -24,21 +24,24 @@ function draw() {
         console.log(player.life, "hit");
         player = null;
         alert("You are dead.");
+        document.location.reload();
+        clearInterval(interval);
+        player.life = 3;
       }
     }
 
     if (bots[i].hasHitBots(bots) == true) {
       bot = null;
       console.log("An enemy is dead.");
-   }
-  }  
+    }
+  }
 
   if (frameCount % 400 == 0) {
     bots.push(new Bot(1));
   }
 
   for (let i = 0; i < bots.length; i++) {
-    if (frameCount % 200 == 0 ) {
+    if (frameCount % 200 == 0) {
       bots[i].shoot();
     }
   }
