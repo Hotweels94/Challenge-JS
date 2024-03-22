@@ -12,7 +12,7 @@ class Player {
         translate(this.position.x, this.position.y);
         rotate(this.angle);
         rect(0, 0, 20, 20);
-        // image(playerImage, 0, 0,45,45);
+        //image(playerImage, 0, 0,45,45);
         pop();
     }
 

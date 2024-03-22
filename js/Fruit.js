@@ -1,3 +1,9 @@
+let fruitImage;
+
+function preload() {
+    fruitImage = loadImage('../img/fruit1.png');
+}
+
 class Fruit {
     constructor(){
         let y = random(maps.height);
@@ -8,20 +14,16 @@ class Fruit {
 
     draw() {
         push();
-        translate(this.position.x, this.position.y);
-        circle(this.position.x, this.position.y, 10);
+        imageMode(CENTER);
+        image(fruitImage, this.position.x, this.position.y,62,62);
         pop();
     }
     
     hasHitFruit(player) {
-        let playerHitBox = 15;
-        for (let i = 0; i < fruits.compteur; i++) {
-          let fruit = this.fruits[i];
-          let d = dist(fruit.x, fruit.y, player.position.x, player.position.y);
-          if (d < playerHitBox / 2) {
-            this.fruits.splice(i, 1);
+        let playerHitBox = 30;
+        let d = dist(this.position.x, this.position.y, player.position.x, player.position.y);
+        if (d < playerHitBox / 2) {
             return true;
-          }
         }
         return false;
     }

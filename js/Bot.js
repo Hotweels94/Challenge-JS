@@ -1,5 +1,9 @@
 let botImage;
 
+function preload() {
+ botImage = loadImage('../img/bot2.png');
+}
+
 class Bot {
   constructor(speed) {
     this.speed = speed;
@@ -15,6 +19,7 @@ class Bot {
     let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
     translate(this.position.x, this.position.y);
     rotate(angle);
+    imageMode(CENTER);
     image(botImage, 0, 0,45,45);
     pop();
 
@@ -67,9 +72,3 @@ class Bot {
   }
 }
 
-
-
-
-function preload() {
-  botImage = loadImage('../img/bot2.png');
-}
