@@ -1,14 +1,18 @@
+let playerImage;
+
 class Player {
     constructor(){
         this.position = createVector(width/2, height/2);
         this.angle = 0;
         this.life = 3;
+        this.score = 0;
     }
     draw(){
         push();
         translate(this.position.x, this.position.y);
         rotate(this.angle);
         rect(0, 0, 20, 20);
+        // image(playerImage, 0, 0,45,45);
         pop();
     }
 
@@ -35,4 +39,8 @@ class Player {
         this.position.add(xSpeed, ySpeed);
         this.angle = atan2(mouseY - this.position.y, mouseX - this.position.x);
     }
+}
+
+function preload() {
+    playerImage = loadImage('../img/player.png');
 }

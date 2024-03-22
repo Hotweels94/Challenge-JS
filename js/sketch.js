@@ -1,5 +1,6 @@
 let player;
 let bots = [];
+let fruits = [];
 let maps;
 let font;
 
@@ -17,6 +18,7 @@ function draw() {
   //textFont(font, 30);
   textSize(20);
   text("Player life : " + player.life, 35, 40);
+  text("Score : " + player.score, 35, 70)
 
   for (let i = bots.length - 1; i >= 0; i--) {
     bots[i].draw();
@@ -37,12 +39,29 @@ function draw() {
     if (bots[i].hasHitBots(bots) == true) {
       bot = null;
       console.log("An enemy is dead.");
+      player.score += 1;
     }
   }
 
-  if (frameCount % 400 == 0) {
-    bots.push(new Bot(1));
-  }
+
+  for (let i = fruits.length - 1; i >= 0; i--)
+    if (fruits[i].hasHitFruit(player) == true) {
+      player.score += 3;
+      console.log(player.life, "Fruit has been hit");
+    }
+
+    for (let i = fruits.length - 1; i >= 0; i--) {
+      fruits[i].draw();
+    }
+
+    if (frameCount % 400 == 0) {
+      bots.push(new Bot(1));
+    }
+
+    if (frameCount % 400 == 0) {
+      fruits.push(new Fruit(1));
+      fruits.compteur += 1; 
+    }
 
   for (let i = 0; i < bots.length; i++) {
     if (frameCount % 200 == 0) {
