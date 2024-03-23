@@ -101,6 +101,7 @@ class Bot {
       let bullet = this.bullets[i];
       let d = dist(bullet.x, bullet.y, player.position.x, player.position.y);
       if (d < playerHitBox / 2) {
+        this.bullets.splice(i, 1);
         return true;
       }
     }
@@ -204,7 +205,6 @@ function draw() {
     }
 
     if (bots[i].hasHitBots(bots) == true) {
-      bots.splice(i, 1);
       console.log("An enemy is dead.");
       player.score += 1;
     }
