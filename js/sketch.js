@@ -26,6 +26,18 @@ class Player {
   draw(){
       push();
       translate(this.position.x, this.position.y);
+      if (this.position.y < 0) {
+        this.position.y += 2;
+      }
+      if (this.position.x < 0) {
+        this.position.x += 2;
+      }
+      // if (this.position.y > windowHeight) {
+      //   this.position.y -= 2;
+      // }
+      // if (this.position.y > windowWidth) {
+      //   this.position.x -= 2;
+      // }
       rotate(this.angle);
       imageMode(CENTER);
       image(playerImage, 0, 0,58,58);
