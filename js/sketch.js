@@ -10,10 +10,12 @@ const SIZE_PLAYER = 30;
 const SIZE_BOT = 25;
 
 
-function preload() {
-  playerImage = loadImage('../img/player.png');
-  botImage = loadImage('../img/bot2.png');
-  fruitImage = loadImage('../img/fruit1.png');
+function setup() {
+  maps = createCanvas(windowWidth, windowHeight);
+  player = new Player();
+  playerImage = loadImage('img/player.png');
+  botImage = loadImage('img/bot2.png');
+  fruitImage = loadImage('img/fruit1.png');
 }
 
 class Player {
@@ -183,11 +185,6 @@ class Bullet {
       this.x += this.speed * cos(this.angle);
       this.y += this.speed * sin(this.angle);
   }
-}
-
-function setup() {
-  maps = createCanvas(windowWidth, windowHeight);
-  player = new Player();
 }
 
 function draw() {
