@@ -5,6 +5,7 @@ let maps;
 let playerImage;
 let botImage;
 let fruitImage;
+let font;
 
 const SIZE_PLAYER = 30;
 const SIZE_BOT = 25;
@@ -16,6 +17,7 @@ function setup() {
   playerImage = loadImage('img/player.png');
   botImage = loadImage('img/bot2.png');
   fruitImage = loadImage('img/fruit1.png');
+  font = loadFont('font/Minecraft.ttf');
 }
 
 class Player {
@@ -193,7 +195,8 @@ function draw() {
   player.draw();
   player.update();
   
-  textSize(20);
+  textFont(font,30);
+  textSize(23);
   text("Player life : " + player.life, 35, 40);
   text("Score : " + player.score, 35, 70)
 
