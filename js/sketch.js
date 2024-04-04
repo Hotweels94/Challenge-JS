@@ -30,18 +30,6 @@ class Player {
   draw(){
       push();
       translate(this.position.x, this.position.y);
-      if (this.position.y < 0) {
-        this.position.y += 2;
-      }
-      if (this.position.x < 0) {
-        this.position.x += 2;
-      }
-      if (this.position.y > windowHeight) {
-        this.position.y -= 2;
-      }
-      if (this.position.x > windowWidth) {
-        this.position.x -= 2;
-      }
       rotate(this.angle);
       imageMode(CENTER);
       image(playerImage, 0, 0,58,58);
@@ -52,19 +40,19 @@ class Player {
       let xSpeed = 0
       let ySpeed = 0
 
-      if (keyIsDown(90)) {
+      if (keyIsDown(90) && this.position.y > 0) {
           ySpeed = -2;
       }
 
-      if (keyIsDown(83)) {
+      if (keyIsDown(83) && this.position.y < windowHeight) {
           ySpeed = 2;
       }
 
-      if (keyIsDown(68)) {
+      if (keyIsDown(68) && this.position.x < windowWidth) {
           xSpeed = 2;
       }
 
-      if (keyIsDown(81)) {
+      if (keyIsDown(81) && this.position.x > 0) {
           xSpeed = -2;
       }
 
