@@ -1,69 +1,69 @@
 let player;
 let bots = [];
 let fruits = [];
-let star = [];
+let heart = [];
 let maps;
 let playerImage;
 let botImage;
 let botSniperImage;
 let fruitImage;
-let starImage;
+let heartImage;
 let font;
 
 const SIZE_PLAYER = 30;
 const SIZE_BOT = 25;
 
-
 function setup() {
   maps = createCanvas(windowWidth, windowHeight);
   player = new Player();
-  star  = new Star();
-  playerImage = loadImage('img/player.png');
-  botImage = loadImage('img/bot2.png');
-  fruitImage = loadImage('img/fruit1.png');
-  botSniperImage = loadImage('img/bot1.png');
-  starImage = loadImage('img/rainbowStar.png');
-  font = loadFont('font/Minecraft.ttf');
+  playerImage = loadImage("img/player.png");
+  botImage = loadImage("img/bot2.png");
+  fruitImage = loadImage("img/fruit1.png");
+  botSniperImage = loadImage("img/bot1.png");
+  heartImage = loadImage("img/heart.png");
+  font = loadFont("font/Minecraft.ttf");
 }
 
 class Player {
-  constructor(){
-      this.position = createVector(width/2, height/2);
-      this.angle = 0;
-      this.life = 3;
-      this.score = 0;
+  constructor() {
+    this.position = createVector(width / 2, height / 2);
+    this.angle = 0;
+    this.life = 3;
+    this.score = 0;
+    this.xSpeed = 1;
+    this.ySpeed = 1;
   }
-  draw(){
-      push();
-      translate(this.position.x, this.position.y);
-      rotate(this.angle);
-      imageMode(CENTER);
-      image(playerImage, 0, 0,58,58);
-      pop();
+  draw() {
+    push();
+    translate(this.position.x, this.position.y);
+    rotate(this.angle);
+    imageMode(CENTER);
+    image(playerImage, 0, 0, 58, 58);
+    pop();
   }
 
-  update(){
-      let xSpeed = 0
-      let ySpeed = 0
+  update() {
+    this.xSpeed *= 0;
+    this.ySpeed *= 0;
 
-      if (keyIsDown(90) && this.position.y > 0) {
-          ySpeed = -2;
-      }
+    if (keyIsDown(90) && this.position.y > 0) {
+      this.ySpeed = -2;
+    }
 
-      if (keyIsDown(83) && this.position.y < windowHeight) {
-          ySpeed = 2;
-      }
+    if (keyIsDown(83) && this.position.y < windowHeight) {
+      this.ySpeed = 2;
+    }
 
-      if (keyIsDown(68) && this.position.x < windowWidth) {
-          xSpeed = 2;
-      }
+    if (keyIsDown(68) && this.position.x < windowWidth) {
+      this.xSpeed = 2;
+    }
 
-      if (keyIsDown(81) && this.position.x > 0) {
-          xSpeed = -2;
-      }
+    if (keyIsDown(81) && this.position.x > 0) {
+      this.xSpeed = -2;
+    }
 
-      this.position.add(xSpeed, ySpeed);
-      this.angle = atan2(mouseY - this.position.y, mouseX - this.position.x);
+    this.position.add(this.xSpeed, this.ySpeed);
+    this.angle = atan2(mouseY - this.position.y, mouseX - this.position.x);
   }
 }
 
@@ -79,11 +79,14 @@ class Bot {
 
   draw() {
     push();
-    let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
+    let angle = atan2(
+      player.position.y - this.position.y,
+      player.position.x - this.position.x,
+    );
     translate(this.position.x, this.position.y);
     rotate(angle);
     imageMode(CENTER);
-    image(botImage, 0, 0,45,45);
+    image(botImage, 0, 0, 45, 45);
     pop();
 
     for (let bullet of this.bullets) {
@@ -99,10 +102,15 @@ class Bot {
   }
 
   shoot() {
-    let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
+    let angle = atan2(
+      player.position.y - this.position.y,
+      player.position.x - this.position.x,
+    );
     let xOffset = cos(angle) * this.radius;
     let yOffset = sin(angle) * this.radius;
-    this.bullets.push(new Bullet(this.position.x + xOffset, this.position.y + yOffset, angle));
+    this.bullets.push(
+      new Bullet(this.position.x + xOffset, this.position.y + yOffset, angle),
+    );
   }
 
   hasHit(player) {
@@ -143,11 +151,14 @@ class BotSniper extends Bot {
 
   draw() {
     push();
-    let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
+    let angle = atan2(
+      player.position.y - this.position.y,
+      player.position.x - this.position.x,
+    );
     translate(this.position.x, this.position.y);
     rotate(angle);
     imageMode(CENTER);
-    image(botSniperImage, 0, 0,45,60);
+    image(botSniperImage, 0, 0, 45, 60);
     pop();
 
     for (let bullet of this.bullets) {
@@ -157,112 +168,121 @@ class BotSniper extends Bot {
   }
 
   shoot() {
-    let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
+    let angle = atan2(
+      player.position.y - this.position.y,
+      player.position.x - this.position.x,
+    );
     let xOffset = cos(angle) * this.radius;
     let yOffset = sin(angle) * this.radius;
-    this.bullets.push(new SniperBullet(this.position.x + xOffset, this.position.y + yOffset, angle));
+    this.bullets.push(
+      new SniperBullet(
+        this.position.x + xOffset,
+        this.position.y + yOffset,
+        angle,
+      ),
+    );
   }
 }
 
 class SniperBullet {
   constructor(x, y, angle) {
-      this.x = x;
-      this.y = y;
-      this.angle = angle;
-      this.speed = 18;
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+    this.speed = 18;
   }
 
-  draw () {
-      push();
-      fill(0);
-      rect(this.x, this.y, 4);
-      pop();
+  draw() {
+    push();
+    fill(0);
+    rect(this.x, this.y, 4);
+    pop();
   }
 
-  update () {
-      this.x += this.speed * cos(this.angle);
-      this.y += this.speed * sin(this.angle);
+  update() {
+    this.x += this.speed * cos(this.angle);
+    this.y += this.speed * sin(this.angle);
   }
 }
 
 class Fruit {
-  constructor(){
-      let y = random(maps.height);
-      let x = random(maps.width);
-      this.position = createVector(x, y);
-      this.compteur = 0;
+  constructor() {
+    let y = random(maps.height);
+    let x = random(maps.width);
+    this.position = createVector(x, y);
+    this.compteur = 0;
   }
 
   draw() {
-      push();
-      imageMode(CENTER);
-      image(fruitImage, this.position.x, this.position.y,62,62);
-      pop();
+    push();
+    imageMode(CENTER);
+    image(fruitImage, this.position.x, this.position.y, 62, 62);
+    pop();
   }
-  
+
   hasHitFruit(player) {
-      let playerHitBox = SIZE_PLAYER;
-      let d = dist(this.position.x, this.position.y, player.position.x, player.position.y);
-      if (d < playerHitBox / 2) {
-          return true;
-      }
-      return false;
+    let playerHitBox = SIZE_PLAYER;
+    let d = dist(
+      this.position.x,
+      this.position.y,
+      player.position.x,
+      player.position.y,
+    );
+    if (d < playerHitBox / 2) {
+      return true;
+    }
+    return false;
   }
 }
 
-
-
-
-
-class Star {
-  constructor(){
-      let y = random(maps.height);
-      let x = random(maps.width);
-      this.position = createVector(x, y);
-      this.compteur = 0;
+class Heart {
+  constructor() {
+    let y = random(maps.height);
+    let x = random(maps.width);
+    this.position = createVector(x, y);
+    this.compteur = 0;
   }
 
   draw() {
-      push();
-      imageMode(CENTER);
-      image(starImage, this.position.x, this.position.y,62,62);
-      pop();
+    push();
+    imageMode(CENTER);
+    image(heartImage, this.position.x, this.position.y, 62, 62);
+    pop();
   }
-  
-  hasHitStar(player) {
-      let playerHitBox = SIZE_PLAYER;
-      let d = dist(this.position.x, this.position.y, player.position.x, player.position.y);
-      if (d < playerHitBox / 2) {
-          return true;
-      }
-      return false;
+
+  hasHitHeart(player) {
+    let playerHitBox = SIZE_PLAYER;
+    let d = dist(
+      this.position.x,
+      this.position.y,
+      player.position.x,
+      player.position.y,
+    );
+    if (d < playerHitBox / 2) {
+      return true;
+    }
+    return false;
   }
 }
-
-
-
-
-
-
 
 class Bullet {
   constructor(x, y, angle) {
-      this.x = x;
-      this.y = y;
-      this.angle = angle;
-      this.speed = 10;
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+    this.speed = 10;
   }
 
-  draw () {
-      push();
-      fill(0);
-      circle(this.x, this.y, 5);
-      pop();
+  draw() {
+    push();
+    fill(0);
+    circle(this.x, this.y, 5);
+    pop();
   }
 
-  update () {
-      this.x += this.speed * cos(this.angle);
-      this.y += this.speed * sin(this.angle);
+  update() {
+    this.x += this.speed * cos(this.angle);
+    this.y += this.speed * sin(this.angle);
   }
 }
 
@@ -271,11 +291,11 @@ function draw() {
   rectMode(CENTER);
   player.draw();
   player.update();
-  
-  textFont(font,30);
+
+  textFont(font, 30);
   textSize(23);
   text("Player life : " + player.life, 35, 40);
-  text("Score : " + player.score, 35, 70)
+  text("Score : " + player.score, 35, 70);
 
   for (let i = bots.length - 1; i >= 0; i--) {
     bots[i].draw();
@@ -297,21 +317,19 @@ function draw() {
       console.log("An enemy is dead.");
       player.score += 1;
     }
-    
   }
 
   for (let i = fruits.length - 1; i >= 0; i--) {
     fruits[i].draw();
   }
 
-  
-  if (frameCount % 400 == 0) {
+  /*if (frameCount % 400 == 0) {
     bots.push(new Bot(1));
   }
   
   if (frameCount % 2000 == 0) {
     bots.push(new BotSniper(1));
-  }
+  }*/
 
   if (frameCount % 600 == 0) {
     fruits.push(new Fruit(1));
@@ -319,25 +337,28 @@ function draw() {
   }
 
   for (let i = fruits.length - 1; i >= 0; i--) {
-  
     if (fruits[i].hasHitFruit(player) == true) {
-     player.score += 3;
-     fruits.splice(i, 1);
-     console.log("Fruit has been hit");
-   } 
- }
- 
- let starSpawn = false;
- if (frameCount % 2500 == 0 && starSpawn == false) {
-  star.push(new Star(1));
-  starSpawn = true;
- }
-  
- if (star.hasHitStar(player) == true) {
-   player.speed += 10;
-   console.log("star has been hit");
- } 
+      player.score += 3;
+      fruits.splice(i, 1);
+      console.log("Fruit has been hit");
+    }
+  }
 
+  for (let i = heart.length - 1; i >= 0; i--) {
+    heart[i].draw();
+  }
+
+  if (frameCount % 3000 == 0) {
+    heart.push(new Heart(1));
+  }
+
+  for (let i = heart.length - 1; i >= 0; i--) {
+    if (heart[i].hasHitHeart(player) == true) {
+      player.life += 1;
+      heart.splice(i, 1);
+      console.log("heart has been hit");
+    }
+  }
 
   for (let i = 0; i < bots.length - 1; i++) {
     if (frameCount % 150 == 0) {
