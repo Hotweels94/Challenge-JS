@@ -4,6 +4,7 @@ let fruits = [];
 let maps;
 let playerImage;
 let botImage;
+let botSniperImage;
 let fruitImage;
 let font;
 
@@ -17,6 +18,7 @@ function setup() {
   playerImage = loadImage('img/player.png');
   botImage = loadImage('img/bot2.png');
   fruitImage = loadImage('img/fruit1.png');
+  botSniperImage = loadImage('img/bot1.png');
   font = loadFont('font/Minecraft.ttf');
 }
 
@@ -131,6 +133,65 @@ class Bot {
 }
 
 
+
+class BotSniper extends Bot {
+  constructor(speed) {
+    super(speed);
+  }
+
+  draw() {
+    push();
+    let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
+    translate(this.position.x, this.position.y);
+    rotate(angle);
+    imageMode(CENTER);
+    image(botSniperImage, 0, 0,45,60);
+    pop();
+
+    for (let bullet of this.bullets) {
+      bullet.draw();
+      bullet.update();
+    }
+  }
+
+  shoot() {
+    let angle = atan2(player.position.y - this.position.y, player.position.x - this.position.x);
+    let xOffset = cos(angle) * this.radius;
+    let yOffset = sin(angle) * this.radius;
+    this.bullets.push(new SniperBullet(this.position.x + xOffset, this.position.y + yOffset, angle));
+  }
+}
+
+class SniperBullet {
+  constructor(x, y, angle) {
+      this.x = x;
+      this.y = y;
+      this.angle = angle;
+      this.speed = 18;
+  }
+
+  draw () {
+      push();
+      fill(0);
+      rect(this.x, this.y, 4);
+      pop();
+  }
+
+  update () {
+      this.x += this.speed * cos(this.angle);
+      this.y += this.speed * sin(this.angle);
+  }
+}
+
+
+
+
+
+
+
+
+
+
 class Fruit {
   constructor(){
       let y = random(maps.height);
@@ -218,6 +279,10 @@ function draw() {
   
   if (frameCount % 400 == 0) {
     bots.push(new Bot(1));
+  }
+  
+  if (frameCount % 1250 == 0) {
+    bots.push(new BotSniper(1));
   }
 
   if (frameCount % 600 == 0) {
