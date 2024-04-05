@@ -323,13 +323,13 @@ function draw() {
     fruits[i].draw();
   }
 
-  /*if (frameCount % 400 == 0) {
+  if (frameCount % 400 == 0) {
     bots.push(new Bot(1));
   }
   
   if (frameCount % 2000 == 0) {
     bots.push(new BotSniper(1));
-  }*/
+  }
 
   if (frameCount % 600 == 0) {
     fruits.push(new Fruit(1));
