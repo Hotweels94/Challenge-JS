@@ -1,11 +1,13 @@
 let player;
 let bots = [];
 let fruits = [];
+let star = [];
 let maps;
 let playerImage;
 let botImage;
 let botSniperImage;
 let fruitImage;
+let starImage;
 let font;
 
 const SIZE_PLAYER = 30;
@@ -15,10 +17,12 @@ const SIZE_BOT = 25;
 function setup() {
   maps = createCanvas(windowWidth, windowHeight);
   player = new Player();
+  star  = new Star();
   playerImage = loadImage('img/player.png');
   botImage = loadImage('img/bot2.png');
   fruitImage = loadImage('img/fruit1.png');
   botSniperImage = loadImage('img/bot1.png');
+  starImage = loadImage('img/rainbowStar.png');
   font = loadFont('font/Minecraft.ttf');
 }
 
@@ -206,6 +210,41 @@ class Fruit {
   }
 }
 
+
+
+
+
+class Star {
+  constructor(){
+      let y = random(maps.height);
+      let x = random(maps.width);
+      this.position = createVector(x, y);
+      this.compteur = 0;
+  }
+
+  draw() {
+      push();
+      imageMode(CENTER);
+      image(starImage, this.position.x, this.position.y,62,62);
+      pop();
+  }
+  
+  hasHitStar(player) {
+      let playerHitBox = SIZE_PLAYER;
+      let d = dist(this.position.x, this.position.y, player.position.x, player.position.y);
+      if (d < playerHitBox / 2) {
+          return true;
+      }
+      return false;
+  }
+}
+
+
+
+
+
+
+
 class Bullet {
   constructor(x, y, angle) {
       this.x = x;
@@ -287,7 +326,18 @@ function draw() {
      console.log("Fruit has been hit");
    } 
  }
-    
+ 
+ let starSpawn = false;
+ if (frameCount % 2500 == 0 && starSpawn == false) {
+  star.push(new Star(1));
+  starSpawn = true;
+ }
+  
+ if (star.hasHitStar(player) == true) {
+   player.speed += 10;
+   console.log("star has been hit");
+ } 
+
 
   for (let i = 0; i < bots.length - 1; i++) {
     if (frameCount % 150 == 0) {
