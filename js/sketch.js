@@ -132,8 +132,6 @@ class Bot {
   }
 }
 
-
-
 class BotSniper extends Bot {
   constructor(speed) {
     super(speed);
@@ -182,15 +180,6 @@ class SniperBullet {
       this.y += this.speed * sin(this.angle);
   }
 }
-
-
-
-
-
-
-
-
-
 
 class Fruit {
   constructor(){
@@ -281,7 +270,7 @@ function draw() {
     bots.push(new Bot(1));
   }
   
-  if (frameCount % 1250 == 0) {
+  if (frameCount % 2000 == 0) {
     bots.push(new BotSniper(1));
   }
 
@@ -301,7 +290,7 @@ function draw() {
     
 
   for (let i = 0; i < bots.length - 1; i++) {
-    if (frameCount % 200 == 0) {
+    if (frameCount % 150 == 0) {
       bots[i].shoot();
     }
   }
