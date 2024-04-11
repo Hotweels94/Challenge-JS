@@ -1,5 +1,6 @@
 let player;
 let bots = [];
+let bossAdded = false;
 let fruits = [];
 let heart = [];
 let maps;
@@ -8,6 +9,7 @@ let botImage;
 let botSniperImage;
 let fruitImage;
 let heartImage;
+let bossImage;
 let font;
 
 const SIZE_PLAYER = 30;
@@ -20,6 +22,7 @@ function setup() {
   botImage = loadImage("img/bot2.png");
   fruitImage = loadImage("img/fruit1.png");
   botSniperImage = loadImage("img/bot1.png");
+  bossImage = loadImage("img/ananas_boss.png");
   heartImage = loadImage("img/heart.png");
   font = loadFont("font/Minecraft.ttf");
 }
@@ -184,6 +187,46 @@ class BotSniper extends Bot {
   }
 }
 
+class Boss extends Bot {
+  constructor(speed) {
+    super(speed);
+  }
+
+  draw() {
+    push();
+    let angle = atan2(
+      player.position.y - this.position.y,
+      player.position.x - this.position.x,
+    );
+    translate(this.position.x, this.position.y);
+    rotate(angle);
+    imageMode(CENTER);
+    image(bossImage, 0, 0, 150, 150);
+    pop();
+
+    for (let bullet of this.bullets) {
+      bullet.draw();
+      bullet.update();
+    }
+  }
+
+  shoot() {
+    let angle = atan2(
+      player.position.y - this.position.y,
+      player.position.x - this.position.x,
+    );
+    let xOffset = cos(angle) * this.radius;
+    let yOffset = sin(angle) * this.radius;
+    this.bullets.push(
+      new BossBullet(
+        this.position.x + xOffset,
+        this.position.y + yOffset,
+        angle,
+      ),
+    );
+  }
+}
+
 class SniperBullet {
   constructor(x, y, angle) {
     this.x = x;
@@ -196,6 +239,27 @@ class SniperBullet {
     push();
     fill(0);
     rect(this.x, this.y, 4);
+    pop();
+  }
+
+  update() {
+    this.x += this.speed * cos(this.angle);
+    this.y += this.speed * sin(this.angle);
+  }
+}
+
+class BossBullet {
+  constructor(x, y, angle) {
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+    this.speed = 17;
+  }
+
+  draw() {
+    push();
+    fill(0);
+    circle(this.x, this.y, 15);
     pop();
   }
 
@@ -329,6 +393,11 @@ function draw() {
   
   if (frameCount % 2000 == 0) {
     bots.push(new BotSniper(1));
+  }
+
+  if (player.score >= 50 && player.score <= 53 && bossAdded == false) {
+    bots.push(new Boss(1));
+    bossAdded = true;
   }
 
   if (frameCount % 600 == 0) {
