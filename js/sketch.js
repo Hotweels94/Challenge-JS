@@ -21,7 +21,7 @@ const SIZE_BOT = 25;
 
 function preload() {
   soundFormats("mp3");
-  music = loadSound("sound/musicFruitNinja");
+  music = loadSound("sound/music");
 }
 
 function setup() {
@@ -44,7 +44,7 @@ function backgroundMusic() {
   
   music.play();
   music.loop();
-  music.setVolume(0.05);
+  music.setVolume(0.025);
   userStartAudio();
 }
 
