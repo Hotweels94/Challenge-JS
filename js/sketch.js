@@ -313,7 +313,7 @@ class Fruit {
       player.position.x,
       player.position.y,
     );
-    if (d < playerHitBox / 2) {
+    if (d < playerHitBox) {
       return true;
     }
     return false;
@@ -343,7 +343,7 @@ class Heart {
       player.position.x,
       player.position.y,
     );
-    if (d < playerHitBox / 2) {
+    if (d < playerHitBox) {
       return true;
     }
     return false;
