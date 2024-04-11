@@ -4,27 +4,48 @@ let bossAdded = false;
 let fruits = [];
 let heart = [];
 let maps;
+
 let playerImage;
 let botImage;
 let botSniperImage;
 let fruitImage;
 let heartImage;
 let bossImage;
+
+let music;
+
 let font;
 
 const SIZE_PLAYER = 30;
 const SIZE_BOT = 25;
 
+function preload() {
+  soundFormats("mp3");
+  music = loadSound("sound/musicFruitNinja");
+}
+
 function setup() {
   maps = createCanvas(windowWidth, windowHeight);
   player = new Player();
+
   playerImage = loadImage("img/player.png");
   botImage = loadImage("img/bot2.png");
   fruitImage = loadImage("img/fruit1.png");
   botSniperImage = loadImage("img/bot1.png");
   bossImage = loadImage("img/ananas_boss.png");
   heartImage = loadImage("img/heart.png");
+
   font = loadFont("font/Minecraft.ttf");
+
+  backgroundMusic();
+}
+
+function backgroundMusic() {
+  
+  music.play();
+  music.loop();
+  music.setVolume(0.05);
+  userStartAudio();
 }
 
 class Player {
