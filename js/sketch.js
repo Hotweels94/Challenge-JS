@@ -18,6 +18,7 @@ let font;
 
 const SIZE_PLAYER = 30;
 const SIZE_BOT = 25;
+let speedPlayer = 2.2;
 
 function preload() {
   soundFormats("mp3");
@@ -71,19 +72,19 @@ class Player {
     this.ySpeed *= 0;
 
     if (keyIsDown(90) && this.position.y > 0) {
-      this.ySpeed = -2;
+      this.ySpeed = -speedPlayer;
     }
 
     if (keyIsDown(83) && this.position.y < windowHeight) {
-      this.ySpeed = 2;
+      this.ySpeed = speedPlayer;
     }
 
     if (keyIsDown(68) && this.position.x < windowWidth) {
-      this.xSpeed = 2;
+      this.xSpeed = speedPlayer;
     }
 
     if (keyIsDown(81) && this.position.x > 0) {
-      this.xSpeed = -2;
+      this.xSpeed = -speedPlayer;
     }
 
     this.position.add(this.xSpeed, this.ySpeed);
@@ -154,13 +155,28 @@ class Bot {
     let botsHitBox = SIZE_BOT;
     for (let i = 0; i < this.bullets.length; i++) {
       let bullet = this.bullets[i];
-      for (let j = 0; j < bots.length; j++) {
-        let bot = bots[j];
-        let d = dist(bullet.x, bullet.y, bot.position.x, bot.position.y);
-        if (d < botsHitBox) {
-          this.bullets.splice(i, 1);
-          bots.splice(j, 1);
-          return true;
+      if (bots[i] instanceof Boss) {
+        for (let j = 0; j < bots.length; j++) {
+          let boss = bots[j];
+          let d = dist(bullet.x, bullet.y, boss.position.x, boss.position.y);
+          if (d < botsHitBox) {
+            boss.life -= 1;
+            console.log("boss: " + boss.life);
+            if (boss.life == 0) {
+              bots.splice(j, 1);
+            }
+            return true;
+          }
+        }
+      } else {
+        for (let j = 0; j < bots.length; j++) {
+          let bot = bots[j];
+          let d = dist(bullet.x, bullet.y, bot.position.x, bot.position.y);
+          if (d < botsHitBox) {
+            this.bullets.splice(i, 1);
+            bots.splice(j, 1);
+            return true;
+          }
         }
       }
     }
@@ -209,8 +225,9 @@ class BotSniper extends Bot {
 }
 
 class Boss extends Bot {
-  constructor(speed) {
+  constructor(speed, life) {
     super(speed);
+    this.life = life;
   }
 
   draw() {
@@ -417,7 +434,7 @@ function draw() {
   }
 
   if (player.score >= 50 && player.score <= 53 && bossAdded == false) {
-    bots.push(new Boss(1));
+    bots.push(new Boss(1, 3));
     bossAdded = true;
   }
 
