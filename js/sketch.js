@@ -71,19 +71,19 @@ class Player {
     this.xSpeed *= 0;
     this.ySpeed *= 0;
 
-    if (keyIsDown(90) || keyIsDown(UP_ARROW) && this.position.y > 0) {
+    if ((keyIsDown(90) || keyIsDown(UP_ARROW)) && this.position.y > 0) {
       this.ySpeed = -speedPlayer;
     }
 
-    if (keyIsDown(83) || keyIsDown(DOWN_ARROW) && this.position.y < windowHeight) {
+    if ((keyIsDown(83) || keyIsDown(DOWN_ARROW)) && this.position.y < windowHeight) {
       this.ySpeed = speedPlayer;
     }
 
-    if (keyIsDown(68) || keyIsDown(RIGHT_ARROW) && this.position.x < windowWidth) {
+    if ((keyIsDown(68) || keyIsDown(RIGHT_ARROW)) && this.position.x < windowWidth) {
       this.xSpeed = speedPlayer;
     }
 
-    if (keyIsDown(81) || keyIsDown(LEFT_ARROW) && this.position.x > 0) {
+    if ((keyIsDown(81) || keyIsDown(LEFT_ARROW)) && this.position.x > 0) {
       this.xSpeed = -speedPlayer;
     }
 
