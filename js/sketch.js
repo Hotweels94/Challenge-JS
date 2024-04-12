@@ -71,19 +71,19 @@ class Player {
     this.xSpeed *= 0;
     this.ySpeed *= 0;
 
-    if (keyIsDown(90) && this.position.y > 0) {
+    if (keyIsDown(90) || keyIsDown(UP_ARROW) && this.position.y > 0) {
       this.ySpeed = -speedPlayer;
     }
 
-    if (keyIsDown(83) && this.position.y < windowHeight) {
+    if (keyIsDown(83) || keyIsDown(DOWN_ARROW) && this.position.y < windowHeight) {
       this.ySpeed = speedPlayer;
     }
 
-    if (keyIsDown(68) && this.position.x < windowWidth) {
+    if (keyIsDown(68) || keyIsDown(RIGHT_ARROW) && this.position.x < windowWidth) {
       this.xSpeed = speedPlayer;
     }
 
-    if (keyIsDown(81) && this.position.x > 0) {
+    if (keyIsDown(81) || keyIsDown(LEFT_ARROW) && this.position.x > 0) {
       this.xSpeed = -speedPlayer;
     }
 
@@ -93,13 +93,14 @@ class Player {
 }
 
 class Bot {
-  constructor(speed) {
+  constructor(speed, life) {
     this.speed = speed;
     let y = random(maps.height);
     let x = random(maps.width);
     this.position = createVector(x, y);
     this.bullets = [];
     this.radius = 20;
+    this.life = life;
   }
 
   draw() {
@@ -155,24 +156,12 @@ class Bot {
     let botsHitBox = SIZE_BOT;
     for (let i = 0; i < this.bullets.length; i++) {
       let bullet = this.bullets[i];
-      if (bots[i] instanceof Boss) {
-        for (let j = 0; j < bots.length; j++) {
-          let boss = bots[j];
-          let d = dist(bullet.x, bullet.y, boss.position.x, boss.position.y);
-          if (d < botsHitBox) {
-            boss.life -= 1;
-            console.log("boss: " + boss.life);
-            if (boss.life == 0) {
-              bots.splice(j, 1);
-            }
-            return true;
-          }
-        }
-      } else {
-        for (let j = 0; j < bots.length; j++) {
-          let bot = bots[j];
-          let d = dist(bullet.x, bullet.y, bot.position.x, bot.position.y);
-          if (d < botsHitBox) {
+      for (let j = 0; j < bots.length; j++) {
+        let bot = bots[j];
+        let d = dist(bullet.x, bullet.y, bot.position.x, bot.position.y);
+        if (d < botsHitBox) {
+          bot.life -= 1;
+          if (bot.life <= 0) {
             this.bullets.splice(i, 1);
             bots.splice(j, 1);
             return true;
@@ -182,11 +171,12 @@ class Bot {
     }
     return false;
   }
+
 }
 
 class BotSniper extends Bot {
-  constructor(speed) {
-    super(speed);
+  constructor(speed, life) {
+    super(speed, life);
   }
 
   draw() {
@@ -226,8 +216,7 @@ class BotSniper extends Bot {
 
 class Boss extends Bot {
   constructor(speed, life) {
-    super(speed);
-    this.life = life;
+    super(speed, life);
   }
 
   draw() {
@@ -426,11 +415,11 @@ function draw() {
   }
 
   if (frameCount % 400 == 0) {
-    bots.push(new Bot(1));
+    bots.push(new Bot(1, 1));
   }
   
   if (frameCount % 2000 == 0) {
-    bots.push(new BotSniper(1));
+    bots.push(new BotSniper(1, 1));
   }
 
   if (player.score >= 50 && player.score <= 53 && bossAdded == false) {
