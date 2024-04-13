@@ -19,7 +19,7 @@ let music;
 let font;
 
 const SIZE_PLAYER = 30;
-const SIZE_BOT = 25;zqzqzqsd
+const SIZE_BOT = 25;
 let speedPlayer = 2.2;
 
 function preload() {
