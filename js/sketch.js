@@ -19,7 +19,7 @@ let music;
 let font;
 
 const SIZE_PLAYER = 30;
-const SIZE_BOT = 25;
+const SIZE_BOT = 25;zqzqzqsd
 let speedPlayer = 2.2;
 
 function preload() {
@@ -442,7 +442,7 @@ function draw() {
     bots.push(new BotSniper(1, 1));
   }
 
-  if (player.score >= 3 && player.score <= 53 && bossAdded == false) {
+  if (player.score >= 50 && player.score <= 53 && bossAdded == false) {
     bots.push(new Boss(1, 3));
     bossAdded = true;
   }
