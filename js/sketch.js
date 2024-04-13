@@ -1,6 +1,7 @@
 let player;
 let bots = [];
 let bossAdded = false;
+let bossDead = false; 
 let fruits = [];
 let heart = [];
 let maps;
@@ -9,6 +10,7 @@ let playerImage;
 let botImage;
 let botSniperImage;
 let fruitImage;
+let goldenFruitImage;
 let heartImage;
 let bossImage;
 
@@ -32,6 +34,7 @@ function setup() {
   playerImage = loadImage("img/player.png");
   botImage = loadImage("img/bot2.png");
   fruitImage = loadImage("img/fruit1.png");
+  goldenFruitImage = loadImage("img/goldenFruit.png");
   botSniperImage = loadImage("img/bot1.png");
   bossImage = loadImage("img/ananas_boss.png");
   heartImage = loadImage("img/heart.png");
@@ -161,9 +164,13 @@ class Bot {
         let d = dist(bullet.x, bullet.y, bot.position.x, bot.position.y);
         if (d < botsHitBox) {
           bot.life -= 1;
+          this.bullets.splice(i, 1);
           if (bot.life <= 0) {
             this.bullets.splice(i, 1);
             bots.splice(j, 1);
+            if (bot instanceof Boss) {
+              bossDead = true;
+            }
             return true;
           }
         }
@@ -326,6 +333,19 @@ class Fruit {
   }
 }
 
+class GoldenFruit extends Fruit {
+  constructor(){
+    super();
+  }
+
+  draw() {
+    push();
+    imageMode(CENTER);
+    image(goldenFruitImage, this.position.x, this.position.y, 62, 62);
+    pop();
+  }
+}
+
 class Heart {
   constructor() {
     let y = random(maps.height);
@@ -422,7 +442,7 @@ function draw() {
     bots.push(new BotSniper(1, 1));
   }
 
-  if (player.score >= 50 && player.score <= 53 && bossAdded == false) {
+  if (player.score >= 3 && player.score <= 53 && bossAdded == false) {
     bots.push(new Boss(1, 3));
     bossAdded = true;
   }
@@ -432,11 +452,22 @@ function draw() {
     fruits.compteur += 1;
   }
 
+  if (bossDead == true) {
+    fruits.push(new GoldenFruit(1));
+    bossDead = false;
+  }
+
   for (let i = fruits.length - 1; i >= 0; i--) {
     if (fruits[i].hasHitFruit(player) == true) {
-      player.score += 3;
-      fruits.splice(i, 1);
-      console.log("Fruit has been hit");
+      if (fruits[i] instanceof GoldenFruit) {
+        player.score += 10;
+        fruits.splice(i, 1);
+        console.log("Golden has been hit");
+      } else {
+        player.score += 3;
+        fruits.splice(i, 1);
+        console.log("Fruit has been hit");
+      }
     }
   }
 
