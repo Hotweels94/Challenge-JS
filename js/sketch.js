@@ -25,6 +25,7 @@ let speedPlayer = 2.2;
 function preload() {
   soundFormats("mp3");
   music = loadSound("sound/music");
+  splat = loadSound("sound/splat");
 }
 
 function setup() {
@@ -48,7 +49,7 @@ function backgroundMusic() {
   
   music.play();
   music.loop();
-  music.setVolume(0.025);
+  music.setVolume(0.020);
   userStartAudio();
 }
 
@@ -165,9 +166,13 @@ class Bot {
         if (d < botsHitBox) {
           bot.life -= 1;
           this.bullets.splice(i, 1);
+          splat.play();
+          splat.setVolume(0.2);
           if (bot.life <= 0) {
             this.bullets.splice(i, 1);
             bots.splice(j, 1);
+            splat.play();
+            splat.setVolume(0.2);
             if (bot instanceof Boss) {
               bossDead = true;
             }
