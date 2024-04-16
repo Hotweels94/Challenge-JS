@@ -1,7 +1,7 @@
 let player;
 let bots = [];
 let bossAdded = false;
-let bossDead = false; 
+let bossDead = false;
 let fruits = [];
 let heart = [];
 let maps;
@@ -41,18 +41,31 @@ function setup() {
   botSniperImage = loadImage("img/bot1.png");
   bossImage = loadImage("img/ananas_boss.png");
   heartImage = loadImage("img/heart.png");
+  soundImage = loadImage("img/monter-le-son.png");
+  muteImage = loadImage("img/muet.png");
 
   font = loadFont("font/Minecraft.ttf");
 
-  backgroundMusic();
+  button = createImg("img/monter-le-son.png");
+  button.mousePressed(backgroundMusic);
+  button.position(width - 50, 10);
+  music.play();
+  music.loop();
+  music.setVolume(0.02);
+  userStartAudio();
 }
 
 function backgroundMusic() {
-  
-  music.play();
-  music.loop();
-  music.setVolume(0.020);
-  userStartAudio();
+  if (!music.isPlaying()) {
+    music.play();
+    music.loop();
+    music.setVolume(0.02);
+    userStartAudio();
+    button.attribute("src", "img/monter-le-son.png");
+  } else {
+    music.stop();
+    button.attribute("src", "img/muet.png");
+  }
 }
 
 class Player {
@@ -81,11 +94,17 @@ class Player {
       this.ySpeed = -speedPlayer;
     }
 
-    if ((keyIsDown(83) || keyIsDown(DOWN_ARROW)) && this.position.y < windowHeight) {
+    if (
+      (keyIsDown(83) || keyIsDown(DOWN_ARROW)) &&
+      this.position.y < windowHeight
+    ) {
       this.ySpeed = speedPlayer;
     }
 
-    if ((keyIsDown(68) || keyIsDown(RIGHT_ARROW)) && this.position.x < windowWidth) {
+    if (
+      (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) &&
+      this.position.x < windowWidth
+    ) {
       this.xSpeed = speedPlayer;
     }
 
@@ -113,7 +132,7 @@ class Bot {
     push();
     let angle = atan2(
       player.position.y - this.position.y,
-      player.position.x - this.position.x,
+      player.position.x - this.position.x
     );
     translate(this.position.x, this.position.y);
     rotate(angle);
@@ -136,12 +155,12 @@ class Bot {
   shoot() {
     let angle = atan2(
       player.position.y - this.position.y,
-      player.position.x - this.position.x,
+      player.position.x - this.position.x
     );
     let xOffset = cos(angle) * this.radius;
     let yOffset = sin(angle) * this.radius;
     this.bullets.push(
-      new Bullet(this.position.x + xOffset, this.position.y + yOffset, angle),
+      new Bullet(this.position.x + xOffset, this.position.y + yOffset, angle)
     );
   }
 
@@ -187,7 +206,6 @@ class Bot {
     }
     return false;
   }
-
 }
 
 class BotSniper extends Bot {
@@ -199,7 +217,7 @@ class BotSniper extends Bot {
     push();
     let angle = atan2(
       player.position.y - this.position.y,
-      player.position.x - this.position.x,
+      player.position.x - this.position.x
     );
     translate(this.position.x, this.position.y);
     rotate(angle);
@@ -216,7 +234,7 @@ class BotSniper extends Bot {
   shoot() {
     let angle = atan2(
       player.position.y - this.position.y,
-      player.position.x - this.position.x,
+      player.position.x - this.position.x
     );
     let xOffset = cos(angle) * this.radius;
     let yOffset = sin(angle) * this.radius;
@@ -224,8 +242,8 @@ class BotSniper extends Bot {
       new SniperBullet(
         this.position.x + xOffset,
         this.position.y + yOffset,
-        angle,
-      ),
+        angle
+      )
     );
   }
 }
@@ -239,7 +257,7 @@ class Boss extends Bot {
     push();
     let angle = atan2(
       player.position.y - this.position.y,
-      player.position.x - this.position.x,
+      player.position.x - this.position.x
     );
     translate(this.position.x, this.position.y);
     rotate(angle);
@@ -256,7 +274,7 @@ class Boss extends Bot {
   shoot() {
     let angle = atan2(
       player.position.y - this.position.y,
-      player.position.x - this.position.x,
+      player.position.x - this.position.x
     );
     let xOffset = cos(angle) * this.radius;
     let yOffset = sin(angle) * this.radius;
@@ -264,8 +282,8 @@ class Boss extends Bot {
       new BossBullet(
         this.position.x + xOffset,
         this.position.y + yOffset,
-        angle,
-      ),
+        angle
+      )
     );
   }
 }
@@ -333,11 +351,11 @@ class Fruit {
       this.position.x,
       this.position.y,
       player.position.x,
-      player.position.y,
+      player.position.y
     );
     if (d < playerHitBox) {
       fruitSound.play();
-      fruitSound.setVolume(0.20);
+      fruitSound.setVolume(0.2);
       return true;
     }
     return false;
@@ -345,7 +363,7 @@ class Fruit {
 }
 
 class GoldenFruit extends Fruit {
-  constructor(){
+  constructor() {
     super();
   }
 
@@ -378,7 +396,7 @@ class Heart {
       this.position.x,
       this.position.y,
       player.position.x,
-      player.position.y,
+      player.position.y
     );
     if (d < playerHitBox) {
       return true;
@@ -448,7 +466,7 @@ function draw() {
   if (frameCount % 400 == 0) {
     bots.push(new Bot(1, 1));
   }
-  
+
   if (frameCount % 2000 == 0) {
     bots.push(new BotSniper(1, 1));
   }
