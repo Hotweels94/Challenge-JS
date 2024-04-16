@@ -26,6 +26,8 @@ function preload() {
   soundFormats("mp3");
   music = loadSound("sound/music");
   splat = loadSound("sound/splat");
+  playerHitSound = loadSound("sound/playerHit");
+  fruitSound = loadSound("sound/fruitTake");
 }
 
 function setup() {
@@ -149,6 +151,8 @@ class Bot {
       let bullet = this.bullets[i];
       let d = dist(bullet.x, bullet.y, player.position.x, player.position.y);
       if (d < playerHitBox / 2) {
+        playerHitSound.play();
+        playerHitSound.setVolume(0.25);
         this.bullets.splice(i, 1);
         return true;
       }
@@ -332,6 +336,8 @@ class Fruit {
       player.position.y,
     );
     if (d < playerHitBox) {
+      fruitSound.play();
+      fruitSound.setVolume(0.20);
       return true;
     }
     return false;
