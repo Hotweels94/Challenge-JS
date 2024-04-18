@@ -445,10 +445,18 @@ function draw() {
       player.life -= 1;
       if (player.life <= 0) {
         console.log(player.life, "hit");
+        background(0);
+        textAlign(CENTER);
+        fill(255);
+        textSize(25);
+        text("YOU LOSE", width / 2, height / 2.20);
+        text("Your Score : " + player.score, width / 2, height / 2);
+        button = createButton("Restart", "Restart");
+        button.position(width / 2.15, height / 1.90);
+        button.mousePressed(function () {
+          document.location.reload();
+        });
         player = null;
-        alert("You are dead.");
-        document.location.reload();
-        clearInterval(interval);
         player.life = 3;
       }
     }

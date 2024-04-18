@@ -6,3 +6,10 @@ html, body {
   canvas {
     display: block;
   }
+
+  button {
+    background-color:cadetblue;
+    font-size: 20px;
+    font-family:'Roboto', sans-serif;
+    cursor: pointer;
+  }
