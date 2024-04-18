@@ -31,6 +31,7 @@ function preload() {
 }
 
 function setup() {
+  // Create a canvas responsive.
   maps = createCanvas(windowWidth, windowHeight);
   player = new Player();
 
@@ -46,6 +47,7 @@ function setup() {
 
   font = loadFont("font/Minecraft.ttf");
 
+  // Added a background music.
   button = createImg("img/monter-le-son.png");
   button.mousePressed(backgroundMusic);
   button.position(width - 50, 10);
@@ -55,6 +57,7 @@ function setup() {
   userStartAudio();
 }
 
+// Added mute functionality.
 function backgroundMusic() {
   if (!music.isPlaying()) {
     music.play();
@@ -445,6 +448,7 @@ function draw() {
       player.life -= 1;
       if (player.life <= 0) {
         console.log(player.life, "hit");
+        // Page display lost with a restart button.
         background(0);
         textAlign(CENTER);
         fill(255);
@@ -454,6 +458,7 @@ function draw() {
         button = createButton("Restart", "Restart");
         button.position(width / 2.15, height / 1.90);
         button.mousePressed(function () {
+          // Reload the page.
           document.location.reload();
         });
         player = null;
