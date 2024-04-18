@@ -1,3 +1,4 @@
+
 let player;
 let bots = [];
 let bossAdded = false;
@@ -5,6 +6,7 @@ let bossDead = false;
 let fruits = [];
 let heart = [];
 let maps;
+let stepBoss = 50;
 
 let playerImage;
 let botImage;
@@ -476,7 +478,7 @@ function draw() {
     fruits[i].draw();
   }
 
-  if (frameCount % 400 == 0) {
+  if (frameCount % 300 == 0) {
     bots.push(new Bot(1, 1));
   }
 
@@ -484,10 +486,11 @@ function draw() {
     bots.push(new BotSniper(1, 1));
   }
 
-  if (player.score >= 50 && player.score <= 53 && bossAdded == false) {
+  if (player.score >= stepBoss) {
     bots.push(new Boss(1, 3));
-    bossAdded = true;
+    stepBoss += 50;
   }
+
 
   if (frameCount % 600 == 0) {
     fruits.push(new Fruit(1));
