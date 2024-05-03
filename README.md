@@ -1,6 +1,7 @@
 # Fruit Attack
 
 This Project is a video game made for the Challenge JS in Paris Ynov Campus. This game is only made in JavaScript. You can play it on my Itch.io page ! https://hotweels94.itch.io/
+Link to my powerpoint of the game : https://www.canva.com/design/DAGCv2SuulI/9IicPgl8Ak0IVfaSZ0nvVA/view?utm_content=DAGCv2SuulI&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
 ## Features
 
